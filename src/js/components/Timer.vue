@@ -3,6 +3,9 @@
         <div>
             {{ display }}
         </div>
+        <div>
+            <small>Interruptions: {{ interupt }}</small>
+        </div>
         <button
             @click="startTimer()"
         >
@@ -22,43 +25,73 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
     name: 'akd-timer',
     data() {
         return {
             running: false,
             start: null,
-
+            now: null,
             timer: null,
+            end_timer: null,
             task: null,
-            interrupt: 0,
+            interupt: 0,
         }
     },
     computed: {
-        tasks: () => {this.$store.state.tasks },
-        pomodoro: () => { this.$store.state.pomodoro },
-        short_break: () => { this.$store.state.short_break },
-        long_break: () => { this.$store.state.long_break },
-        display: () => {
+        tasks() {
+            return this.$store.state.tasks; 
+        },
+        pomodoro() {
+            return this.$store.state.pomodoro;
+        },
+        short_break() {
+            return this.$store.state.short_break;
+        },
+        long_break() {
+            return this.$store.state.long_break;
+        },
+        display() {
             if(this.start === null) {
                 return "00:00";
             }
-            let now = moment();
-            let duration = moment.duration(now.diff(this.start));
-            return `${duration.minutes()}:${duraction.seconds()}`;
+            let duration = moment.duration(this.now.diff(this.start));
+            let mins = duration.minutes().toString().padStart(2,'0');
+            let secs = duration.seconds().toString().padStart(2,'0');
+            return `${mins}:${secs}`;
         }
     },
     methods: {
-        startTimer() {
+        initTimer() {
+            let timeout = this.pomodoro * 60 * 60 * 1000;
             this.start = moment();
+            this.now = moment();
+            this.end_timer = setTimeout(() => {
+                this.resetTimer();
+            }, timeout);
+            this.timer = setInterval(() => {
+                this.now = moment();
+            },1000);
         },
-        interrupttimer() {
-            this.start = moment();
-            this.interrupt ++;
+        resetTimer() {
+            clearTimeout(this.end_timer);
+            clearInterval(this.timer);
+            this.start = null;
+            this.timer = null;
+            this.end_timer = null;
+            this.interupt = 0;
+        },
+        startTimer() {
+            this.initTimer();
+        },
+        interruptTimer() {
+            this.initTimer();
+            this.interupt ++;
         },
         stopTimer() {
-            this.start = null;
-            this.intterupt = 0;
+           this.resetTimer();
         }
     },
     mounted() {
