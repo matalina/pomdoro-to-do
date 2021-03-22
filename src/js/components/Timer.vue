@@ -1,6 +1,13 @@
 <template>
     <div>
         <div>
+            <router-link
+                to="/settings"
+            >
+                Settings 
+            </router-link>
+        </div>
+        <div>
             {{ display }}
         </div>
         <div>
