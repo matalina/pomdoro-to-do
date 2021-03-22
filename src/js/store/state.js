@@ -4,6 +4,9 @@ function state() {
         pomodoro: 25,
         short_break: 5,
         long_break: 15,
+
+        // Tasks
+        tasks: [],
     };
 };
 
