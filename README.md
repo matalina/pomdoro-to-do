@@ -1,6 +1,7 @@
 # Pomodoro To Do List
 
 ## Features
+- [ ] Style Guide w/ Components
 - [X] Basic Pomodoro timer
 - [ ] Timer Settings
 - [ ] Timer order: default work 1 short break, work 4 long break
