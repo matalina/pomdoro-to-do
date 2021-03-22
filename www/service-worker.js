@@ -23,11 +23,13 @@ self.addEventListener("install", (event) => {
       // Setting {cache: 'reload'} in the new request will ensure that the
       // response isn't fulfilled from the HTTP cache; i.e., it will be from
       // the network.
-      await cache.add(new Request("index.html", { cache: "reload" }));
-      await cache.add(new Request("./js/vendor.js", { cache: "reload" }));
-      await cache.add(new Request("./js/manifest.js", { cache: "reload" }));
-      await cache.add(new Request("./js/app.js", { cache: "reload" }));
-      await cache.add(new Request("./css/app.css", { cache: "reload" }));
+      await cache.addAll([
+          "index.html",
+          "./js/vendor.js",
+          "./js/manifest.js",
+          "./js/app.js",
+          "./css/app.css"
+        ]);
     })()
   );
   // Force the waiting service worker to become the active service worker.
@@ -73,7 +75,13 @@ self.addEventListener("fetch", (event) => {
           console.log("Fetch failed; returning offline page instead.", error);
 
           const cache = await caches.open(CACHE_NAME);
-          const cachedResponse = await cache.match(OFFLINE_URL);
+          const cachedResponse = await cache.matchAll([
+              "index.html",
+              "./js/vendor.js",
+              "./js/manifest.js",
+              "./js/app.js",
+              "./css/app.css"
+            ]);
           return cachedResponse;
         }
       })()
