@@ -7,7 +7,7 @@
 - [ ] Pomodoro count per task
 - [ ] Interruptions count (per task & total)
 - [ ] Actions list/Backlog/Ineruptions
-- [ ] PWA (installable -- should already work offline)
+- [X] PWA (installable -- should already work offline)
 
 ### One day features
 - [ ] Save/sync across devices

@@ -40,6 +40,11 @@ new vue__WEBPACK_IMPORTED_MODULE_2__.default({
   template: '<App/>',
   store: _store__WEBPACK_IMPORTED_MODULE_0__.default
 });
+window.addEventListener("load", function () {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+});
 
 /***/ }),
 
