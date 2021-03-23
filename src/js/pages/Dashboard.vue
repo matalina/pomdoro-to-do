@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-4xl">Pomodoro To Do List</h1>
+        <akd-page-title>Pomodoro To Do List</akd-page-title>
         <akd-timer></akd-timer>
     </div>
 </template>
@@ -11,7 +11,7 @@ import Timer from "../components/Timer";
 export default {
     name: 'akd-dashboard',
     components: {
-        'akd-timer': Timer
+        'akd-timer': Timer,
     },
     data() {
         return {

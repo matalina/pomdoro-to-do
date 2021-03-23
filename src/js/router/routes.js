@@ -9,7 +9,7 @@ const routes = [
     {
         path: '/settings',
         component: Settings,
-    }
+    },
 ];
 
 export default routes;
